@@ -1,0 +1,27 @@
+<script>
+Ext.onReady(function() {
+    var movie_form = new Ext.FormPanel({
+        url: 'movie-form-submit.php',
+        renderTo: document.body,
+        frame: true,
+        title: 'Movie Information Form',
+        width: 300,
+        items: [{
+            xtype: 'textfield',
+            fieldLabel: 'Username',
+            name: 'user',
+            allowBlank: false
+        },
+        {
+        	xtype: 'textfield',
+        	fieldLabel: 'Email',
+        	name: 'email',
+        	allowBlank: false
+        },
+        {
+        	xtype: 'tbbutton',
+        	text: 'Log in',
+        }]
+    });
+});
+</script>
