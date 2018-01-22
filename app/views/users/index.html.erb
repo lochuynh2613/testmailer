@@ -1,31 +1,71 @@
-<p id="notice"><%= notice %></p>
-
+<p id="notice">
+    <%= notice %>
+</p>
 <h1>Users</h1>
-
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Login</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.login %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Login</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+            <tr>
+                <td>
+                    <%= user.name %>
+                </td>
+                <td>
+                    <%= user.email %>
+                </td>
+                <td>
+                    <%= user.login %>
+                </td>
+                <td>
+                    <%= link_to 'Show', user %>
+                </td>
+                <td>
+                    <%= link_to 'Edit', edit_user_path(user) %>
+                </td>
+                <td>
+                    <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
+                </td>
+            </tr>
+            <% end %>
+    </tbody>
 </table>
-
 <br>
+<div id="abc"></div>
+<script>
+Ext.onReady(function() {
+    var store = new Ext.data.JsonStore({
+        url: 'users.json',
+        fields: [
+            'id',
+            'name',
+            'email',
+            'login'
+        ]
+    });
+    store.load();
 
+    // add your data store here
+    var grid = new Ext.grid.GridPanel({
+        renderTo: Ext.get("abc"),
+        frame: true,
+        title: 'Movie Database',
+        height: 200,
+        width: 400,
+        store: store,
+        columns: [
+          { id: 'id', dataIndex: 'id' } ,   
+          { header: "Name", dataIndex: 'name' },
+          { header: "Email", dataIndex: 'email' },
+          { header: "Login", dataIndex: 'login' }
+        ]
+    });
+});
+</script>
 <%= link_to 'New User', new_user_path %>
