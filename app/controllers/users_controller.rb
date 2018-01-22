@@ -1,4 +1,7 @@
+require 'pry'
 class UsersController < ApplicationController
+
+  protect_from_forgery
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # GET /users
   # GET /users.json
@@ -28,7 +31,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save 
         SendEmailJob.set(wait: 20.seconds).perform_later(@user)    
@@ -74,6 +76,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :login)
+      params.permit(:name, :email, :login)
     end
 end
