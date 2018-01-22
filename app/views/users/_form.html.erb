@@ -1,64 +1,72 @@
 <%= form_with(model: user, local: true) do |form| %>
-   
-            <% end %>
-                <script>
-                Ext.onReady(function() {
-                    var movie_form = new Ext.FormPanel({
-                        url: 'localhost:3000/users/new',
-                        renderTo: document.body,
-                        frame: true,
-                        title: 'Movie Information Form',
-                        width: 250,
-                        items: [{
-                            xtype: 'textfield',
-                            fieldLabel: 'Name',
-                            name: 'name',
-                            id: 'name',
-                            allowBlank: false
-                        }, {
-                            xtype: 'textfield',
-                            fieldLabel: 'Email',
-                            name: 'email',
-                            id: 'email'
-                        }, {
-                            xtype: 'textfield',
-                            fieldLabel: 'Login',
-                            name: 'login',
-                            id: 'login'
-                        }, {
-                            xtype: 'radio',
-                            fieldLabel: 'HI',
-                            name: 'filmed_in',
-                            boxLabel: 'ahihi'
-                        }, {
-                            xtype: 'radio',
-                            hideLabel: false,
-                            labelSeparator: '',
-                            name: 'filmed_in',
-                            boxLabel: 'Black & White'
-                        }, {
-                            xtype: 'tbbutton',
-                            text: 'create',
-                            listeners: {
-                                click: function() {
-                                  var a = Ext.getCmp("name").getValue();
-                                  var b = Ext.getCmp("email").getValue();
-                                  var c = Ext.getCmp("login").getValue();
-                                  Ext.Ajax.request({
-                                    url: '/users',
-                                    method: 'POST',
-                                    params: {name: a,email:b,login: c},
-                                    success: function (response, opts){
-                                      Ext.MessageBox.alert("","Successfully!!!");
-                                      debugger
-                                    },
-                                    failure: function (response, opts){
-                                      debugger
-                                    }
-                                  });
+    <% end %>
+        <script>
+        Ext.onReady(function() {
+            var movie_form = new Ext.FormPanel({
+                url: 'localhost:3000/users/new',
+                renderTo: document.body,
+                frame: true,
+                title: 'Movie Information Form',
+                width: 250,
+                items: [{
+                    xtype: 'textfield',
+                    fieldLabel: 'Name',
+                    name: 'name',
+                    id: 'name',
+                    allowBlank: false
+                }, {
+                    xtype: 'textfield',
+                    fieldLabel: 'Email',
+                    name: 'email',
+                    id: 'email',
+                    allowBlank: false
+                }, {
+                    xtype: 'textfield',
+                    fieldLabel: 'Login',
+                    name: 'login',
+                    id: 'login',
+                    allowBlank: false
+                }, {
+                    xtype: 'radio',
+                    fieldLabel: 'HI',
+                    name: 'filmed_in',
+                    boxLabel: 'ahihi'
+                }, {
+                    xtype: 'radio',
+                    hideLabel: false,
+                    labelSeparator: '',
+                    name: 'filmed_in',
+                    boxLabel: 'Black & White'
+                }, {
+                    xtype: 'tbbutton',
+                    text: 'Create',
+                    listeners: {
+                        click: function() {
+                            var a = Ext.getCmp("name").getValue();
+                            var b = Ext.getCmp("email").getValue();
+                            var c = Ext.getCmp("login").getValue();
+                            Ext.Ajax.request({
+                                url: '/users',
+                                method: 'POST',
+                                params: { name: a, email: b, login: c },
+                                success: function(response, opts) {
+                                  window.location.replace("http://0.0.0.0:3000/users");
+                                },
+                                failure: function(response, opts) {
+
                                 }
-                            },
-                        }]
-                    });
-                });
-                </script>
+                            });
+                        }
+                    },
+                }, {
+                    xtype: 'tbbutton',
+                    text: 'Back',
+                    listeners: {
+                        click: function() {
+                            window.location.assign("http://localhost:3000/users");
+                        }
+                    }
+                }]
+            });
+        });
+        </script>

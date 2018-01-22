@@ -57,15 +57,26 @@ Ext.onReady(function() {
         frame: true,
         title: 'Movie Database',
         height: 200,
-        width: 400,
+        width: 600,
         store: store,
+        tbar: [{
+            xtype: 'button',
+            text: 'Create',
+                handler: function() {
+                    location.href = "http://0.0.0.0:3000/users/new";
+                }
+            }],
         columns: [
             { id: 'id', dataIndex: 'id' },
             { header: "Name", dataIndex: 'name' },
             { header: "Email", dataIndex: 'email' },
-            { header: "Login", dataIndex: 'login' }
+            { header: "Login", dataIndex: 'login' },
+            {
+                header: "Action",
+                width: 150,
+                dataIndex: 'action'
+            }
         ]
     });
 });
 </script>
-<%= link_to 'New User', new_user_path %>

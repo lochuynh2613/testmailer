@@ -1,7 +1,7 @@
 require 'pry'
 class UsersController < ApplicationController
 
-  protect_from_forgery
+  skip_before_action :verify_authenticity_token
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   # GET /users
   # GET /users.json
