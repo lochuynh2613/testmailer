@@ -55,6 +55,7 @@ Ext.onReady(function() {
 
     // add your data store here
     var grid = new Ext.grid.GridPanel({
+        xtype: 'actioncolumn',
         id: 'myGrid',
         renderTo: Ext.get("abc"),
         frame: true,
@@ -66,7 +67,7 @@ Ext.onReady(function() {
             xtype: 'button',
             text: 'Create',
             handler: function() {
-                location.href = "/users";
+                movie_form.show();
             }
         }],
         columns: [
@@ -74,20 +75,39 @@ Ext.onReady(function() {
             { header: "Name", dataIndex: 'name' },
             { header: "Email", dataIndex: 'email' },
             { header: "Login", dataIndex: 'login' },
-            {
-                header: "Action",
-                width: 150,
-                dataIndex: 'action'
+            { header: "Action", 
+              width: 150, 
+              xtype: 'actioncolumn',
+              // dataIndex: 'action',
+              items:[{
+                icon:'message.png',
+                tooltip:'show',
+                handler:function(grid, rowIndex, colIndex, item,e ,record){
+                    //add code for button click
+                }
+              },{
+                icon:'gear.png',
+                tooltip:'edit',
+                handler:function(grid, rowIndex, colIndex, item,e ,record){
+                    //add code for button click
+                }
+              },{
+                icon:'plaster.png',
+                tooltip:'delete',
+                handler:function(grid, rowIndex, colIndex, item,e ,record){
+                    //add code for button click
+                }
+              }]
             }
         ]
     });
-    var myBtnHandler = function(btn) {
-        movie_form.show();
-    }
-    var fileBtn = new Ext.Button({
-        text: 'Show Create Form',
-        renderTo: Ext.get("dfg"),
-        handler: myBtnHandler
-    });
+    // var myBtnHandler = function(btn) {
+    //     movie_form.show();
+    // }
+    // var fileBtn = new Ext.Button({
+    //     text: 'Show Create Form',
+    //     renderTo: Ext.get("dfg"),
+    //     handler: myBtnHandler
+    // });
 });
 </script>

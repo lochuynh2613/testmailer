@@ -1,29 +1,36 @@
-var movie_form = new Ext.FormPanel({
+var movie_form = new Ext.Window({
     url: 'localhost:3000/users/new',
     renderTo: document.body,
     frame: true,
     hidden: true,
+    layout: 'form',
+    closeAction: 'hide',
     title: 'Movie Information Form',
-    width: 250,
+    width: 280,
     items: [{
         xtype: 'textfield',
         fieldLabel: 'Name',
         name: 'name',
         id: 'name',
+        cls: 'customField',
+        emptyText: 'Name',
         allowBlank: false
     }, {
         xtype: 'textfield',
         fieldLabel: 'Email',
         name: 'email',
         id: 'email',
+        emptyText: 'Email',
         allowBlank: false
     }, {
         xtype: 'textfield',
         fieldLabel: 'Login',
         name: 'login',
         id: 'login',
+        emptyText: 'Login',
         allowBlank: false
-    }, {
+    }],
+    buttons: [{
         xtype: 'tbbutton',
         text: 'Create',
         listeners: {
@@ -35,8 +42,8 @@ var movie_form = new Ext.FormPanel({
                     url: '/users',
                     success: function(response, opts) {
                         Ext.getCmp('myGrid').getStore().load();
-                        Ext.getCmp('myGrid').getView().refresh();
-                        window.location.reload();
+                        Ext.getCmp('myGrid').getView().reload();
+                        movie_form.refresh();
                         movie_form.hide();
                     },
                     jsonData: { name: a, email: b, login: c }

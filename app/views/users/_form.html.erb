@@ -46,11 +46,11 @@
                             var b = Ext.getCmp("email").getValue();
                             var c = Ext.getCmp("login").getValue();
                             Ext.Ajax.request({
-                                url: '/users',
+                                url: '/users/new',
                                 method: 'POST',
                                 params: { name: a, email: b, login: c },
                                 success: function(response, opts) {
-                                  window.location.replace("http://0.0.0.0:3000/users");
+                                    window.location.replace("http://0.0.0.0:3000/users");
                                 },
                                 failure: function(response, opts) {
 
@@ -64,6 +64,40 @@
                     listeners: {
                         click: function() {
                             window.location.assign("http://localhost:3000/users");
+                        }
+                    }
+                }]
+            });
+            Ext.create('Ext.container.Container', {
+                layout: {
+                    type: 'hbox'
+                },
+                items: [{
+                    xtype: 'tbbutton',
+                    text: 'Create',
+                    listeners: {
+                        click: function() {
+                            var a = Ext.getCmp("name").getValue();
+                            var b = Ext.getCmp("email").getValue();
+                            var c = Ext.getCmp("login").getValue();
+                            Ext.Ajax.request({
+                                url: '/users',
+                                success: function(response, opts) {
+                                    Ext.getCmp('myGrid').getStore().load();
+                                    Ext.getCmp('myGrid').getView().reload();
+                                    movie_form.refresh();
+                                    movie_form.hide();
+                                },
+                                jsonData: { name: a, email: b, login: c }
+                            });
+                        }
+                    }
+                }, {
+                    xtype: 'tbbutton',
+                    text: 'Back',
+                    listeners: {
+                        click: function() {
+                            movie_form.hide();
                         }
                     }
                 }]
