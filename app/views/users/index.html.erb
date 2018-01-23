@@ -38,6 +38,8 @@
 </table>
 <br>
 <div id="abc"></div>
+<div id="dfg" style="width: 100px;margin-left: 500px"></div>
+<%= javascript_include_tag "test.js"%>
 <script>
 Ext.onReady(function() {
     var store = new Ext.data.JsonStore({
@@ -62,10 +64,10 @@ Ext.onReady(function() {
         tbar: [{
             xtype: 'button',
             text: 'Create',
-                handler: function() {
-                    location.href = "http://0.0.0.0:3000/users/new";
-                }
-            }],
+            handler: function() {
+                location.href = "http://0.0.0.0:3000/users/new";
+            }
+        }],
         columns: [
             { id: 'id', dataIndex: 'id' },
             { header: "Name", dataIndex: 'name' },
@@ -77,6 +79,14 @@ Ext.onReady(function() {
                 dataIndex: 'action'
             }
         ]
+    });
+    var myBtnHandler = function(btn) {
+        movie_form.show();
+    }
+    var fileBtn = new Ext.Button({
+        text: 'Show Create Form',
+        renderTo: Ext.get("dfg"),
+        handler: myBtnHandler
     });
 });
 </script>
