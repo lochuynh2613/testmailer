@@ -55,6 +55,7 @@ Ext.onReady(function() {
 
     // add your data store here
     var grid = new Ext.grid.GridPanel({
+        id: 'myGrid',
         renderTo: Ext.get("abc"),
         frame: true,
         title: 'Movie Database',
@@ -65,7 +66,7 @@ Ext.onReady(function() {
             xtype: 'button',
             text: 'Create',
             handler: function() {
-                location.href = "http://0.0.0.0:3000/users/new";
+                location.href = "/users";
             }
         }],
         columns: [

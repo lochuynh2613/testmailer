@@ -2,7 +2,7 @@ var movie_form = new Ext.FormPanel({
     url: 'localhost:3000/users/new',
     renderTo: document.body,
     frame: true,
-    hidden:true,
+    hidden: true,
     title: 'Movie Information Form',
     width: 250,
     items: [{
@@ -24,17 +24,6 @@ var movie_form = new Ext.FormPanel({
         id: 'login',
         allowBlank: false
     }, {
-        xtype: 'radio',
-        fieldLabel: 'HI',
-        name: 'filmed_in',
-        boxLabel: 'ahihi'
-    }, {
-        xtype: 'radio',
-        hideLabel: false,
-        labelSeparator: '',
-        name: 'filmed_in',
-        boxLabel: 'Black & White'
-    }, {
         xtype: 'tbbutton',
         text: 'Create',
         listeners: {
@@ -44,17 +33,16 @@ var movie_form = new Ext.FormPanel({
                 var c = Ext.getCmp("login").getValue();
                 Ext.Ajax.request({
                     url: '/users',
-                    method: 'POST',
-                    params: { name: a, email: b, login: c },
                     success: function(response, opts) {
-                        window.location.replace("http://0.0.0.0:3000/users");
+                        Ext.getCmp('myGrid').getStore().load();
+                        Ext.getCmp('myGrid').getView().refresh();
+                        window.location.reload();
+                        movie_form.hide();
                     },
-                    failure: function(response, opts) {
-
-                    }
+                    jsonData: { name: a, email: b, login: c }
                 });
             }
-        },
+        }
     }, {
         xtype: 'tbbutton',
         text: 'Back',
