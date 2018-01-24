@@ -1,42 +1,3 @@
-<p id="notice">
-    <%= notice %>
-</p>
-<h1>Users</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Login</th>
-            <th colspan="3"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @users.each do |user| %>
-            <tr>
-                <td>
-                    <%= user.name %>
-                </td>
-                <td>
-                    <%= user.email %>
-                </td>
-                <td>
-                    <%= user.login %>
-                </td>
-                <td>
-                    <%= link_to 'Show', user %>
-                </td>
-                <td>
-                    <%= link_to 'Edit', edit_user_path(user) %>
-                </td>
-                <td>
-                    <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %>
-                </td>
-            </tr>
-            <% end %>
-    </tbody>
-</table>
-<br>
 <div id="abc"></div>
 <div id="dfg" style="width: 100px;margin-left: 500px"></div>
 <div id="abcd"></div>
@@ -71,13 +32,6 @@ Ext.onReady(function() {
             handler: function() {
                 movie_form.show();
             }
-        },
-        {
-            xtype:'button',
-            text: 'xxx',
-            handler: function() {
-                var sm = grid.getSelectionModel();
-            }
         }],
         columns: [
             { id: 'id', dataIndex: 'id' },
@@ -94,44 +48,43 @@ Ext.onReady(function() {
                     tooltip: 'show',
                     handler: function() {
                         var sm = grid.getSelectionModel();
-                        if(sm.hasSelection()){
-                        var sel = sm.selection;
-
-                        var a = sel.record.data.name;
-                        var b = sel.record.data.login;
-                        var c = sel.record.data.email;
-                        Ext.Msg.alert('User', a,b,c);
+                        if (sm.hasSelection()) {
+                            var sel = sm.selection;
+                            var a = sel.record.data.name;
+                            var c = sel.record.data.login;
+                            var b = sel.record.data.email;
+                            Ext.Msg.alert('User', "Name: " + a + "  Email: " + b + "   Login: " + c);
+                        } else {
+                            Ext.Msg.alert('Error', 'Error');
+                        }
                     }
-                    else{
-                        Ext.Msg.alert('ssssssss','fffffffff');
-                    }
-                    }
-                    
 
                 }, {
                     icon: 'gear.png',
                     tooltip: 'edit',
                     handler: function(grid, rowIndex, colIndex, item, e, record) {
-                        //add code for button click
+                        movie_form.show();
                     }
                 }, {
                     icon: 'plaster.png',
                     tooltip: 'delete',
-                    handler: function(grid, rowIndex, colIndex, item, e, record) {
-                        //add code for button click
+                    handler: function() {
+                        var sm = grid.getSelectionModel();
+                        var sel = sm.selection;
+
+                        Ext.Ajax.request({
+                            url: '/users/' + sel.record.data.id,
+                            method: 'DELETE',
+                            success: function() {
+
+                                store.reload();
+                            }
+                        });
                     }
                 }]
             }
         ]
     });
-    // var myBtnHandler = function(btn) {
-    //     movie_form.show();
-    // }
-    // var fileBtn = new Ext.Button({
-    //     text: 'Show Create Form',
-    //     renderTo: Ext.get("dfg"),
-    //     handler: myBtnHandler
-    // });
 });
 </script>
 <script src="/js/form.js"></script>

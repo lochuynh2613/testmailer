@@ -2,6 +2,7 @@ var movie_form = new Ext.Window({
     url: 'localhost:3000/users/new',
     frame: true,
     layout: 'form',
+    buttonAlign:'center',
     closeAction: 'hide',
     title: 'Movie Information Form',
     width: 280,
