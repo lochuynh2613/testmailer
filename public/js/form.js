@@ -1,8 +1,6 @@
 var movie_form = new Ext.Window({
     url: 'localhost:3000/users/new',
-    renderTo: document.body,
     frame: true,
-    hidden: true,
     layout: 'form',
     closeAction: 'hide',
     title: 'Movie Information Form',
@@ -42,9 +40,7 @@ var movie_form = new Ext.Window({
                     url: '/users',
                     success: function(response, opts) {
                         Ext.getCmp('myGrid').getStore().load();
-                        Ext.getCmp('myGrid').getView().reload();
-                        movie_form.refresh();
-                        movie_form.hide();
+                        Ext.getCmp('myGrid').getView().refresh();
                     },
                     jsonData: { name: a, email: b, login: c }
                 });

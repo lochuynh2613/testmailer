@@ -39,9 +39,11 @@
 <br>
 <div id="abc"></div>
 <div id="dfg" style="width: 100px;margin-left: 500px"></div>
-<%= javascript_include_tag "test.js"%>
+<div id="abcd"></div>
 <script>
 Ext.onReady(function() {
+    Ext.QuickTips.init();
+
     var store = new Ext.data.JsonStore({
         url: 'users.json',
         fields: [
@@ -54,7 +56,7 @@ Ext.onReady(function() {
     store.load();
 
     // add your data store here
-    var grid = new Ext.grid.GridPanel({
+    var grid = new Ext.grid.EditorGridPanel({
         xtype: 'actioncolumn',
         id: 'myGrid',
         renderTo: Ext.get("abc"),
@@ -69,35 +71,56 @@ Ext.onReady(function() {
             handler: function() {
                 movie_form.show();
             }
+        },
+        {
+            xtype:'button',
+            text: 'xxx',
+            handler: function() {
+                var sm = grid.getSelectionModel();
+            }
         }],
         columns: [
             { id: 'id', dataIndex: 'id' },
             { header: "Name", dataIndex: 'name' },
             { header: "Email", dataIndex: 'email' },
             { header: "Login", dataIndex: 'login' },
-            { header: "Action", 
-              width: 150, 
-              xtype: 'actioncolumn',
-              // dataIndex: 'action',
-              items:[{
-                icon:'message.png',
-                tooltip:'show',
-                handler:function(grid, rowIndex, colIndex, item,e ,record){
-                    //add code for button click
-                }
-              },{
-                icon:'gear.png',
-                tooltip:'edit',
-                handler:function(grid, rowIndex, colIndex, item,e ,record){
-                    //add code for button click
-                }
-              },{
-                icon:'plaster.png',
-                tooltip:'delete',
-                handler:function(grid, rowIndex, colIndex, item,e ,record){
-                    //add code for button click
-                }
-              }]
+            {
+                header: "Action",
+                width: 150,
+                xtype: 'actioncolumn',
+                // dataIndex: 'action',
+                items: [{
+                    icon: 'message.png',
+                    tooltip: 'show',
+                    handler: function() {
+                        var sm = grid.getSelectionModel();
+                        if(sm.hasSelection()){
+                        var sel = sm.selection;
+
+                        var a = sel.record.data.name;
+                        var b = sel.record.data.login;
+                        var c = sel.record.data.email;
+                        Ext.Msg.alert('User', a,b,c);
+                    }
+                    else{
+                        Ext.Msg.alert('ssssssss','fffffffff');
+                    }
+                    }
+                    
+
+                }, {
+                    icon: 'gear.png',
+                    tooltip: 'edit',
+                    handler: function(grid, rowIndex, colIndex, item, e, record) {
+                        //add code for button click
+                    }
+                }, {
+                    icon: 'plaster.png',
+                    tooltip: 'delete',
+                    handler: function(grid, rowIndex, colIndex, item, e, record) {
+                        //add code for button click
+                    }
+                }]
             }
         ]
     });
@@ -111,3 +134,4 @@ Ext.onReady(function() {
     // });
 });
 </script>
+<script src="/js/form.js"></script>
